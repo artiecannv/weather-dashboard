@@ -21,16 +21,21 @@ function getWeather(event, countryCode = 'US') {
     fetch(`https://api.openweathermap.org/data/2.5/forecast?zip=${inputBox.value},${countryCode}&appid=${APIkey}`).then(response => {return response.json()}).then(weatherObject => {
         console.log(weatherObject);
         
-        let dateTime = new Date(weatherObject.list[4].dt * 1000);
+        let dateTime = new Date(weatherObject.list[2].dt * 1000);
         let date = dateTime.toLocaleDateString("en-US");
         let time = dateTime.toTimeString("it-IT");
         let location = weatherObject.city.name;
-        let hiLow = [weatherObject.list[4].main.temp_max, weatherObject.list[4].main.temp_min]
+        let hiLow = [weatherObject.list[2].main.temp_max, weatherObject.list[2].main.temp_min];
+        let humidity = ['Humidity is:' + ' ' + (weatherObject.list[4].main.humidity) + '%'];
+        let weatherIcon = [weatherObject.list[4].weather.icon]
 
 
         document.getElementById('date').innerHTML = dateTime;
         document.getElementById('location').innerHTML = location;
-        document.getElementById('hiLow').innerHTML = hiLow
+        document.getElementById('hiLow').innerHTML = hiLow;
+        document.getElementById('humid').innerHTML = humidity;
+        document.getElementById('weatherIcon').innerHTML = weatherIcon;
+        
 
    
 
