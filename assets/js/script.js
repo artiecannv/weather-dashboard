@@ -11,6 +11,15 @@ function getWeather(event, countryCode = 'US') {
      // Getting the current weather
      fetch(`https://api.openweathermap.org/data/2.5/weather?zip=${inputBox.value},${countryCode}&appid=${APIkey}`).then(response => {return response.json()}).then(weatherObject => {
         console.log(weatherObject);
+        let currentDate = new Date(weatherObject.dt * 1000);
+        let currentTemp = ["Current Temperature is:" + " " + (((weatherObject.main.temp - 273) * 1.8) + 32) + "&#8457;"];
+        let currentHumid = ['Humidity is:' + ' ' + (weatherObject.main.humidity) + '%'];
+        // let currentWind = ;
+
+
+        document.getElementById('currentDate').innerHTML = currentDate
+        document.getElementById('currentTemp').innerHTML = currentTemp;
+        document.getElementById('currentHumid').innerHTML = currentHumid;
 
 
 
