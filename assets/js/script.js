@@ -4,8 +4,10 @@ let inputBox = document.getElementById("inputBox");
 
 searchButton.addEventListener("click", getWeather);
 
+
 function getWeather(event, countryCode = "US") {
   event.preventDefault();
+
   // Getting the current weather
   fetch(
     `https://api.openweathermap.org/data/2.5/weather?zip=${inputBox.value},${countryCode}&appid=${APIkey}&units=imperial`
@@ -45,13 +47,6 @@ function getWeather(event, countryCode = "US") {
     })
     .then((weatherObject) => {
       console.log(weatherObject);
-
-        
-      
-      //   let weatherIcon = [weatherObject.list[4].weather.icon];
-      
-      //   document.getElementById("humid").innerHTML = humidity;
-      //   document.getElementById("weatherIcon").innerHTML = weatherIcon;
 
       let fiveDayCards = "";
 
