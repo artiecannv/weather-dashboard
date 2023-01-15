@@ -5,12 +5,17 @@ let inputBox = document.getElementById("inputBox");
 searchButton.addEventListener("click", getWeather);
 
 
-function getWeather(event, countryCode = "US") {
+function getWeather(event) {
+ if (event) {
   event.preventDefault();
+ } 
+  console.log(inputBox.value);
+  let cityZip = inputBox.value||"Aurora";
+  
 
   // Getting the current weather
   fetch(
-    `https://api.openweathermap.org/data/2.5/weather?zip=${inputBox.value},${countryCode}&appid=${APIkey}&units=imperial`
+    `https://api.openweathermap.org/data/2.5/weather?q=${cityZip}&appid=${APIkey}&units=imperial`
   )
     .then((response) => {
       return response.json();
@@ -40,7 +45,7 @@ function getWeather(event, countryCode = "US") {
 
   // Getting the future weather
   fetch(
-    `https://api.openweathermap.org/data/2.5/forecast?zip=${inputBox.value},${countryCode}&appid=${APIkey}&units=imperial`
+    `https://api.openweathermap.org/data/2.5/forecast?q=${cityZip}&appid=${APIkey}&units=imperial`
   )
     .then((response) => {
       return response.json();
@@ -60,11 +65,11 @@ function getWeather(event, countryCode = "US") {
         let lowTemp = "Low Temp:" + " " + weatherObject.list[index].main.temp_min;
         let humidity = "Humidity:" + " " + weatherObject.list[index].main.humidity + "%";
         let windSpeed = "Wind Speed:" + " " + weatherObject.list[index].wind.speed;
-        
-        let currentDiv = `<div class="card" style="width: 18rem;">
-        <img src="http://openweathermap.org/img/wn/${weatherObject.list[index].weather[0].icon}.png" class="card-img-top" alt="...">
+        //Formatting of the 5day forecast cards
+        let currentDiv = `<div class="card col-2 ms-3">
+        <h5 class="card-title">${currentDateEl}</h5>
         <div class="card-body">
-          <h5 class="card-title">${currentDateEl}</h5>
+          <img src="http://openweathermap.org/img/wn/${weatherObject.list[index].weather[0].icon}@2x.png"  alt="weather-icon">
           <ul class="card-text">
           <li>${highTemp} ${lowTemp}</li>
             <li>${humidity}</li>
@@ -75,5 +80,8 @@ function getWeather(event, countryCode = "US") {
         fiveDayCards += currentDiv;
       }
       document.getElementById("5day").innerHTML = fiveDayCards;
+      
     });
 }
+
+getWeather();
