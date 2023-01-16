@@ -2,6 +2,7 @@ const APIkey = "945b04e321728f7351f85b9767317c51";
 let searchButton = document.getElementById("srchBtn");
 let inputBox = document.getElementById("inputBox");
 
+//Makes the search button clickable
 searchButton.addEventListener("click", getWeather);
 
 
